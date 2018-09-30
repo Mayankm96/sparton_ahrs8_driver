@@ -121,14 +121,14 @@ if __name__ == '__main__':
     default_frameid = "ahrs8_imu"
     compass_port = rospy.get_param("~port", default_port)
     compass_baud = rospy.get_param("~baud", default_baud)
-    compass_baud = rospy.get_param("~frame_id", default_frameid)
+    compass_frame = rospy.get_param("~frame_id", default_frameid)
 
     # Initialize publisher
     imu_pub = rospy.Publisher("imu/data", Imu, queue_size=10)
     imu_msg = Imu()
 
     # Set IMU device transform frame.
-    imu_msg.header.frame_id = default_frameid
+    imu_msg.header.frame_id = compass_frame
 
     # Default matrix to use for covariance of each measurement set.
     default_covariance_matrix = [1e-6, 0, 0,
