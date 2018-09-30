@@ -114,12 +114,21 @@ def set_all_covariance(imu_msg, covariance_matrix):
 if __name__ == '__main__':
     # Initialize node
     rospy.init_node("ahrs8_node")
+
+
+    default_port = "/dev/ttyUSB0"
+    default_baud = 115200
+    default_frameid = "ahrs8_imu"
+    compass_port = rospy.get_param("~port", default_port)
+    compass_baud = rospy.get_param("~baud", default_baud)
+    compass_baud = rospy.get_param("~frame_id", default_frameid)
+
     # Initialize publisher
     imu_pub = rospy.Publisher("imu/data", Imu, queue_size=10)
     imu_msg = Imu()
 
     # Set IMU device transform frame.
-    imu_msg.header.frame_id = "ahrs8_imu"
+    imu_msg.header.frame_id = default_frameid
 
     # Default matrix to use for covariance of each measurement set.
     default_covariance_matrix = [1e-6, 0, 0,
@@ -128,11 +137,6 @@ if __name__ == '__main__':
 
     # Populate the imu message with the covariance matrix.
     set_all_covariance(imu_msg, default_covariance_matrix)
-    
-    default_port = "/dev/ttyUSB0"
-    default_baud = 115200
-    compass_port = rospy.get_param("~port", default_port)
-    compass_baud = rospy.get_param("~baud", default_baud)
 
     compass_serial = serial.Serial(compass_port, compass_baud, timeout=1)
 
@@ -187,4 +191,3 @@ if __name__ == '__main__':
         imu_msg.header.stamp = rospy.Time.now()
         # Publish the current message.
         imu_pub.publish(imu_msg)
-        
