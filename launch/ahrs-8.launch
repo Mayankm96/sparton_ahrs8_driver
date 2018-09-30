@@ -3,10 +3,12 @@
     <!-- Launch configuration -->
     <arg name="port" default="/dev/ttyUSB0" />
     <arg name="baud" default="115200" />
+    <arg name="frame_id" default="fcu" />
 
     <!-- Launch an AHRS-8 node. -->
-    <node name="ahrs8" pkg="core_sparton" type="ahrs8_nmea.py">
+    <node name="ahrs8_driver" pkg="sparton_ahrs8_driver" type="ahrs8_nmea.py">
         <param name="port" value="$(arg port)" />
         <param name="baud" value="$(arg baud)" />
+        <param name="frame_id" value="$(arg frame_id)" />
     </node>
 </launch>
