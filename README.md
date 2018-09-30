@@ -16,14 +16,18 @@ git clone https://www.github.com/Mayankm96/sparton_ahrs8_driver.git
 2. Build the package:
 ```bash
 cd ~/catkin_ws
-catkin build --pkg sparton_ahrs8_driver
+catkin buildsparton_ahrs8_driver
 ```
 3. Check the serial port to which the sensor is connected at and change the device path in the [launch file](launch/ahrs-8.launch)
 ```bash
 # to verify if device is at /dev/ttyUSB0, run:
 udevadm info -a -p  $(udevadm info -q path -n /dev/ttyUSB0)
 ```
-4. Run the launch file:
+4. Ensure that python cript has executable permission:
+```bash
+chmod +x sparton_ahrs8_driver/scripts/ahrs8_nmea.py
+```
+5. Run the launch file:
 ```bash
 roslaunch sparton_ahrs8_driver ahrs-8.launch
 ```
