@@ -16,7 +16,7 @@ git clone https://www.github.com/Mayankm96/sparton_ahrs8_driver.git
 2. Build the package:
 ```bash
 cd ~/catkin_ws
-catkin buildsparton_ahrs8_driver
+catkin build sparton_ahrs8_driver
 ```
 3. Check the serial port to which the sensor is connected at and change the device path in the [launch file](launch/ahrs-8.launch)
 ```bash
